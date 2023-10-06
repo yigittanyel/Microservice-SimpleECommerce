@@ -1,4 +1,5 @@
 using CustomerService.ApplicationDbContext;
+using CustomerService.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,6 +10,8 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<AppDbContext>
     (options => options.UseNpgsql(builder.Configuration.GetConnectionString("NpSqlCnnStr")));
+
+builder.Services.AddScoped<ICustomerService, CustomerService.Services.CustomerService>();
 
 var app = builder.Build();
 
