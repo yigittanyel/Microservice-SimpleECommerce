@@ -5,6 +5,7 @@
 - Ocelot
 - MSSQL 
 - Postgre SQL
+- MySQL
 - Docker
 - EF Core Code First
 - Transaction Management
