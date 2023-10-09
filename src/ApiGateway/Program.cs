@@ -9,6 +9,13 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("CORSPolicy",
+        builder => builder
+            .AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+});
+
 builder.Configuration.AddJsonFile("ocelot.json");
 
 builder.Services.AddOcelot().AddCacheManager(x =>
@@ -23,6 +30,7 @@ builder.Services.AddOcelot().AddCacheManager(x =>
     .WithJsonSerializer()
     .WithRedisCacheHandle("redis");
 });
+
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
@@ -33,7 +41,9 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.UseOcelot().Wait();
+app.UseCors("CORSPolicy");
+
+await app.UseOcelot();
 
 app.UseAuthorization();
 
