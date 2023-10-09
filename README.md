@@ -3,6 +3,7 @@
 #### Tech Stack
 - .Net Core Web Api
 - Ocelot
+- Ocelot API Gateway Cache
 - MSSQL 
 - Postgre SQL
 - MySQL
